@@ -26,6 +26,7 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls')),
     path('prevention/', include('prevention.urls')),
     path('alerts/', include('alerts.urls')),
+    path('', include('users.urls')),
 ]
 
 

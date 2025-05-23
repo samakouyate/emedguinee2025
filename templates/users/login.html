@@ -1,1 +1,78 @@
- 
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion - Espace Médical</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e0ecf8;
+        }
+        .card-header-custom {
+            background-color: #0d6efd;
+            color: white;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+            text-align: center;
+            padding: 2rem;
+        }
+        .login-icon {
+            width: 50px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6 col-sm-10">
+            <div class="card shadow-sm">
+                <div class="card-header-custom">
+                    <img src="{% static 'img/medical-icon.png' %}" alt="Logo médical" class="login-icon">
+                    <h4 class="mb-1">Espace Médical</h4>
+                    <p class="mb-0 small">Connexion sécurisée</p>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                                {{ field }}
+                                {% for error in field.errors %}
+                                    <div class="form-text text-danger small">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+
+                        <div class="form-check mb-3">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <button type="submit" class="btn btn-primary px-4 py-2">Se connecter</button>
+                        </div>
+                    </form>
+                    <hr>
+                    <div class="text-center small">
+                        <a href="{% url 'password_reset' %}">Mot de passe oublié ?</a><br>
+                        <a href="{% url 'register' %}">Créer un compte</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
