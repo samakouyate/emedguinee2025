@@ -1,0 +1,179 @@
+/* Variables globales */
+:root {
+    --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    --transition-speed: 0.3s;
+    --primary-color: #1e3c72;
+}
+
+/* ...existing code... */
+/* Styles du Footer */
+.footer-custom {
+    background: var(--primary-gradient);
+    margin-top: auto;
+}
+
+.footer-custom .social-links a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transition: transform var(--transition-speed) ease;
+}
+
+.footer-custom .social-links a:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.footer-custom .hover-opacity {
+    transition: opacity var(--transition-speed) ease;
+}
+
+.footer-custom .hover-opacity:hover {
+    opacity: 0.8;
+    text-decoration: underline !important;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .footer-custom .col-md-6 {
+        margin-bottom: 2rem;
+    }
+}
+
+/* Styles Navbar Responsive */
+.custom-navbar {
+    background: var(--primary-gradient);
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation du bouton hamburger */
+.navbar-toggler {
+    border: none;
+    padding: 0.5rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+/* Styles des dropdown menus */
+.dropdown-menu {
+    background: var(--primary-gradient);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color: white !important;
+    transition: all var(--transition-speed) ease;
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+/* Media Queries */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        padding: 1rem 0;
+    }
+
+    .navbar-nav .nav-item {
+        padding: 0.5rem 0;
+    }
+
+    .dropdown-menu {
+        background: transparent;
+        border: none;
+        padding-left: 1rem;
+    }
+
+    .nav-buttons {
+        padding: 1rem 0;
+    }
+
+    .custom-nav-link::after {
+        display: none;
+    }
+
+    .nav-link {
+        padding: 0.5rem 0;
+    }
+
+    .navbar-nav .dropdown-menu {
+        box-shadow: none;
+    }
+}
+
+@media (min-width: 992px) {
+    .nav-buttons {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-buttons .btn {
+        min-width: 120px;
+    }
+}
+/* Variables globales */
+:root {
+    --primary-color: #2196F3;  /* Bleu plus clair */
+    --secondary-color: #64B5F6; /* Bleu encore plus clair */
+    --text-color: white;
+    --hover-bg: rgba(255, 255, 255, 0.2);
+    --transition-speed: 0.3s;
+}
+
+/* Styles de base pour tous les liens du menu */
+.nav-link, .dropdown-item {
+    color: var(--text-color) !important;
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.5px;
+    padding: 0.7rem 1rem !important;
+    margin: 0 5px;
+    border-radius: 5px;
+    transition: all var(--transition-speed) ease !important;
+}
+
+/* Effet de survol pour les liens */
+.nav-link:hover, .dropdown-item:hover {
+    background: var(--hover-bg);
+    transform: translateY(-2px);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Style spécifique pour le menu déroulant */
+.dropdown-menu {
+    background: var(--primary-color) !important;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+}
+
+.dropdown-item {
+    border-radius: 4px;
+    margin: 2px 0;
+}
+
+/* Style pour le menu actif */
+.nav-link.active {
+    background: var(--hover-bg);
+    font-weight: 600 !important;
+}
+
+/* Boutons de connexion/inscription */
+.nav-buttons .btn {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    transition: all var(--transition-speed) ease;
+}

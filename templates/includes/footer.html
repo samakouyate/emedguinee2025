@@ -1,27 +1,107 @@
-<footer class="bg-primary text-white pt-4 mt-5">
-    <div class="container text-center text-md-start">
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <h5 class="text-uppercase fw-bold">e_medGuinée</h5>
-                <p>Votre plateforme de gestion de santé connectée, moderne et sécurisée.</p>
+<footer class="footer-custom text-white">
+    <div class="container py-5">
+        <div class="row g-4">
+            <!-- Logo et Description -->
+            <div class="col-lg-3 col-md-6">
+                <h3 class="fw-bold mb-3">
+                    <i class="fas fa-heartbeat me-2"></i>e_medGuinée
+                </h3>
+                <p class="opacity-75">Votre plateforme innovante de santé connectée en Guinée. Nous rendons les soins de santé plus accessibles et plus efficaces.</p>
+                <div class="social-links mt-3">
+                    <a href="#" class="me-3 text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="me-3 text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="me-3 text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                </div>
             </div>
-            <div class="col-md-4 mb-3">
-                <h5 class="text-uppercase fw-bold">Navigation</h5>
+
+            <!-- Liens Core (Sama) -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="fw-bold mb-3">Navigation</h5>
                 <ul class="list-unstyled">
-                    <li><a href="{% url 'home' %}" class="text-white text-decoration-none">Accueil</a></li>
-                    <li><a href="{% url 'about' %}" class="text-white text-decoration-none">À propos</a></li>
-                    <li><a href="{% url 'contact' %}" class="text-white text-decoration-none">Contact</a></li>
-                    <li><a href="{% url 'login' %}" class="text-white text-decoration-none">Connexion</a></li>
+                    <li class="mb-2"><a href="{% url 'home' %}" class="text-white text-decoration-none hover-opacity">
+                        <i class="fas fa-home me-2"></i>Accueil
+                    </a></li>
+                    <li class="mb-2"><a href="{% url 'about' %}" class="text-white text-decoration-none hover-opacity">
+                        <i class="fas fa-info-circle me-2"></i>À propos
+                    </a></li>
+                    <li class="mb-2"><a href="{% url 'contact' %}" class="text-white text-decoration-none hover-opacity">
+                        <i class="fas fa-envelope me-2"></i>Contact
+                    </a></li>
+                    <li class="mb-2"><a href="{% url 'legal' %}" class="text-white text-decoration-none hover-opacity">
+                        <i class="fas fa-gavel me-2"></i>Mentions légales
+                    </a></li>
                 </ul>
             </div>
-            <div class="col-md-4 mb-3">
-                <h5 class="text-uppercase fw-bold">Contact</h5>
-                <p>Email : contact@emedguinee.com</p>
-                <p>Tél : +224 622 00 00 00</p>
+
+            <!-- Services (Sama + Collaborateur) -->
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="fw-bold mb-3">Nos Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <a href="{% url 'prevention' %}" class="text-white text-decoration-none hover-opacity">
+                                <i class="fas fa-shield-virus me-2"></i>Prévention Santé
+                            </a>
+                        </li>
+                        {% if user.is_authenticated %}
+                            {% if user.is_patient %}
+                                <li class="mb-2">
+                                    <a href="{% url 'patient_dashboard' %}" class="text-white text-decoration-none hover-opacity">
+                                        <i class="fas fa-user-circle me-2"></i>Espace Patient
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if user.is_medecin %}
+                                <li class="mb-2">
+                                    <a href="{% url 'medecin_dashboard' %}" class="text-white text-decoration-none hover-opacity">
+                                        <i class="fas fa-user-md me-2"></i>Espace Médecin
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if user.is_staff %}
+                                <li class="mb-2">
+                                    <a href="{% url 'admin_dashboard' %}" class="text-white text-decoration-none hover-opacity">
+                                        <i class="fas fa-cog me-2"></i>Administration
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                        <li class="mb-2">
+                            <a href="{% url 'contact' %}" class="text-white text-decoration-none hover-opacity">
+                                <i class="fas fa-headset me-2"></i>Support
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            <!-- Contact -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="fw-bold mb-3">Contact</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-map-marker-alt me-2"></i>
+                        Conakry, République de Guinée
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-phone me-2"></i>
+                        +224 622 00 00 00
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-envelope me-2"></i>
+                        contact@emedguinee.com
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-clock me-2"></i>
+                        Lun-Ven: 8h-18h
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-    <div class="text-center p-3 bg-dark">
-        &copy; 2025 e_medGuinée. Tous droits réservés.
+
+    <!-- Copyright -->
+    <div class="text-center py-3" style="background: rgba(0, 0, 0, 0.2);">
+        <div class="container">
+            <p class="mb-0">&copy; 2025 e_medGuinée. Tous droits réservés.</p>
+        </div>
     </div>
 </footer>
