@@ -1,1 +1,72 @@
- 
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mentions légales - e_medGuinée{% endblock %}
+
+{% block content %}
+<section class="py-6 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <h1 class="fw-bold text-primary mb-4">
+                    <i class="fas fa-balance-scale me-2"></i>Mentions légales
+                </h1>
+                <div class="bg-white rounded-4 shadow-sm p-4 p-lg-5">
+                    <div class="mb-4">
+                        <h5 class="fw-bold text-primary"><i class="fas fa-user-shield me-2"></i>Éditeur du site</h5>
+                        <p class="mb-0">
+                            <b>e_medGuinée</b><br>
+                            Conakry, Guinée<br>
+                            Email : <a href="mailto:contact@emedguinee.com">contact@emedguinee.com</a>
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="fw-bold text-primary"><i class="fas fa-user-tie me-2"></i>Responsable de la publication</h5>
+                        <p class="mb-0">
+                            Kouyaté Sama<br>
+                            Email : <a href="mailto:kouyasama273@gmail.com">kouyasama273@gmail.com</a>
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="fw-bold text-primary"><i class="fas fa-server me-2"></i>Hébergement</h5>
+                        <p class="mb-0">
+                            Plateforme : <b>PythonAnywhere</b> (ou préciser l’hébergeur réel)<br>
+                            Adresse : Londres, Royaume-Uni
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="fw-bold text-primary"><i class="fas fa-copyright me-2"></i>Propriété intellectuelle</h5>
+                        <p class="mb-0">
+                            Le contenu du site e_medGuinée (textes, images, logo, etc.) est protégé par le droit d’auteur.<br>
+                            Toute reproduction ou utilisation sans autorisation est interdite.
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="fw-bold text-primary"><i class="fas fa-user-secret me-2"></i>Données personnelles</h5>
+                        <p class="mb-0">
+                            Les informations collectées via le formulaire de contact sont utilisées uniquement pour répondre à vos demandes.<br>
+                            Conformément à la loi, vous pouvez demander la suppression de vos données en écrivant à <a href="mailto:contact@emedguinee.com">contact@emedguinee.com</a>.
+                        </p>
+                    </div>
+                    <div class="mb-4">
+                        <h5 class="fw-bold text-primary"><i class="fas fa-cookie-bite me-2"></i>Cookies</h5>
+                        <p class="mb-0">
+                            Ce site peut utiliser des cookies pour améliorer votre expérience utilisateur.<br>
+                            Vous pouvez configurer votre navigateur pour les refuser.
+                        </p>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold text-primary"><i class="fas fa-exclamation-triangle me-2"></i>Limitation de responsabilité</h5>
+                        <p class="mb-0">
+                            e_medGuinée ne saurait être tenu responsable des dommages directs ou indirects liés à l’utilisation du site.
+                        </p>
+                    </div>
+                </div>
+                <div class="text-end mt-3">
+                    <small class="text-muted">Dernière mise à jour : mai 2025</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

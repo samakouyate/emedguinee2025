@@ -1,1 +1,115 @@
- 
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}À propos - e_medGuinée{% endblock %}
+
+{% block content %}
+<section class="py-6 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd23?auto=format&fit=crop&w=600&q=80"
+                     alt="Notre équipe" class="img-fluid rounded-4 shadow">
+            </div>
+            <div class="col-lg-6">
+                <h1 class="fw-bold mb-4 text-primary">À propos de e_medGuinée</h1>
+                <p class="lead mb-4">
+                    e_medGuinée est une plateforme innovante dédiée à la santé connectée en Guinée.<br>
+                    Notre mission : faciliter l'accès aux soins de qualité pour tous, grâce à la technologie.
+                </p>
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-4 mb-3">
+                    <i class="fas fa-user-plus me-2"></i>Rejoindre la plateforme
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Nos valeurs -->
+<section class="py-6">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold text-primary mb-3">Nos valeurs</h2>
+                <p class="lead text-muted">Ce qui guide notre engagement au quotidien</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center py-4">
+                        <i class="fas fa-hand-holding-heart fa-2x text-primary mb-3"></i>
+                        <h5 class="fw-bold mb-2">Humanité</h5>
+                        <p class="text-muted">Placer l’humain au cœur de chaque action et décision.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center py-4">
+                        <i class="fas fa-lock fa-2x text-primary mb-3"></i>
+                        <h5 class="fw-bold mb-2">Confidentialité</h5>
+                        <p class="text-muted">Garantir la sécurité et la confidentialité des données de santé.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center py-4">
+                        <i class="fas fa-lightbulb fa-2x text-primary mb-3"></i>
+                        <h5 class="fw-bold mb-2">Innovation</h5>
+                        <p class="text-muted">Proposer des solutions modernes et adaptées à tous.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Notre équipe -->
+<section class="py-6 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold text-primary mb-3">Notre équipe</h2>
+                <p class="lead text-muted">Des professionnels passionnés au service de votre santé</p>
+            </div>
+        </div>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="card-img-top" alt="Dr. Diallo">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bold mb-1">Dr. Mamadou Diallo</h5>
+                        <p class="text-muted mb-0">Médecin généraliste</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="card-img-top" alt="Dr. Bah">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bold mb-1">Dr. Aïssatou Bah</h5>
+                        <p class="text-muted mb-0">Cardiologue</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Notre vision -->
+<section class="py-6">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold text-primary mb-3">Notre vision</h2>
+                <p class="lead text-muted">
+                    Offrir à chaque Guinéen un accès simple, rapide et sécurisé à la santé, grâce au numérique.<br>
+                    Nous croyons en une Guinée où la technologie rapproche les patients et les professionnels de santé.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

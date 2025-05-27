@@ -1,1 +1,52 @@
  
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dashboard Patient{% endblock %}
+...
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <h1 class="fw-bold text-primary mb-4 text-center">
+            <i class="fas fa-user-circle me-2"></i>Mon espace patient
+        </h1>
+        <div class="row g-4 justify-content-center">
+            <!-- Profil -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-id-card fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title mb-2">Mon profil</h5>
+                        <p class="card-text text-muted">Gérez vos informations personnelles et vos paramètres de compte.</p>
+                        <a href="{% url 'patient_profile' %}" class="btn btn-outline-primary w-100">Voir mon profil</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Données médicales -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-notes-medical fa-3x text-success mb-3"></i>
+                        <h5 class="card-title mb-2">Mes données médicales</h5>
+                        <p class="card-text text-muted">Consultez et téléchargez votre dossier médical en toute sécurité.</p>
+                        <a href="{% url 'patient_medical' %}" class="btn btn-outline-success w-100">Voir mes données</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Alertes -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-bell fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title mb-2">Mes alertes</h5>
+                        <p class="card-text text-muted">Soyez informé de vos rendez-vous, rappels et alertes santé.</p>
+                        <a href="{% url 'patient_alerts' %}" class="btn btn-outline-warning w-100">Voir mes alertes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5">
+            <img src="{% static 'images/medical_dashboard.svg' %}" alt="Santé" class="img-fluid" style="max-height:180px;">
+        </div>
+    </div>
+</section>
+{% endblock %}

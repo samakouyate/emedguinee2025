@@ -36,6 +36,43 @@
     opacity: 0.8;
     text-decoration: underline !important;
 }
+.custom-navbar {
+    background-color: #007bff; /* Bleu médical */
+}
+
+.custom-nav-link {
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.custom-nav-link:hover {
+    color: #ffdd57 !important;
+}
+
+.footer-custom {
+    background-color: #0c2d48;
+}
+
+.footer-custom h5,
+.footer-custom h3 {
+    color: #ffffff;
+}
+
+.hover-opacity:hover {
+    opacity: 0.75;
+    transition: 0.3s ease;
+}
+
+.social-links a {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.social-links a:hover {
+    transform: scale(1.1);
+    color: #00d4ff !important;
+}
+
 
 /* Media Queries */
 @media (max-width: 768px) {

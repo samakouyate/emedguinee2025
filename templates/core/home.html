@@ -1,11 +1,142 @@
- 
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil - e_medGuinée{% endblock %}
 
 {% block content %}
-<div class="text-center">
-    <h1 class="display-4">Bienvenue !</h1>
-    <p class="lead">Votre santé à portée de main.</p>
-</div>
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center min-vh-100" style="background: linear-gradient(135deg, #2196F3, #64B5F6);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h1 class="display-3 fw-bold text-white mb-4" style="line-height:1.1;">
+                    <span style="color:#fff; text-shadow:0 2px 8px #1976D2;">Votre santé,</span><br>
+                    <span style="color:#fff;">notre priorité</span>
+                </h1>
+                <p class="lead text-white mb-4 fs-4">
+                    Plateforme moderne pour la consultation en ligne, le suivi médical et la prévention.<br>
+                    Accédez à des soins de qualité, partout, à tout moment.
+                </p>
+                <div class="d-flex gap-3 mb-4 flex-wrap">
+                    <a href="{% url 'register' %}" class="btn btn-light btn-lg px-4 shadow">
+                        <i class="fas fa-user-plus me-2"></i>Inscription
+                    </a>
+                    <a href="#services" class="btn btn-outline-light btn-lg px-4 shadow">
+                        <i class="fas fa-info-circle me-2"></i>Découvrir
+                    </a>
+                </div>
+                <!-- Compteurs -->
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <div class="counter-box text-center p-3 shadow-sm bg-white rounded-4">
+                            <div class="counter-value text-primary" data-target="1000">0</div>
+                            <div class="counter-label text-muted">Médecins</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="counter-box text-center p-3 shadow-sm bg-white rounded-4">
+                            <div class="counter-value text-primary" data-target="5000">0</div>
+                            <div class="counter-label text-muted">Patients</div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="counter-box text-center p-3 shadow-sm bg-white rounded-4">
+                            <div class="counter-value text-primary" data-target="24">0</div>
+                            <div class="counter-label text-muted">Support 24/7</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+                     alt="e_medGuinée" class="img-fluid rounded-4 shadow-lg hero-img" style="max-height:400px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services -->
+<section id="services" class="py-6 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold text-primary mb-3">Nos Services</h2>
+                <p class="lead text-muted">Une solution complète pour votre santé et votre bien-être</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow service-card">
+                    <div class="card-body text-center py-5">
+                        <div class="icon-circle mb-4">
+                            <i class="fas fa-user-md fa-2x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Consultation</h5>
+                        <p class="card-text text-muted">Consultez nos médecins qualifiés en ligne, en toute confidentialité.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm mt-3">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow service-card active">
+                    <div class="card-body text-center py-5">
+                        <div class="icon-circle mb-4">
+                            <i class="fas fa-heartbeat fa-2x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Suivi Médical</h5>
+                        <p class="card-text text-muted">Accédez à votre dossier médical numérique en toute sécurité.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm mt-3">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow service-card">
+                    <div class="card-body text-center py-5">
+                        <div class="icon-circle mb-4">
+                            <i class="fas fa-shield-virus fa-2x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Prévention</h5>
+                        <p class="card-text text-muted">Restez informé avec nos conseils de santé personnalisés.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm mt-3">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Comment ça marche -->
+<section class="py-6">
+    <div class="container">
+        <div class="row mb-5 text-center">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold text-primary mb-3">Comment ça marche ?</h2>
+                <p class="lead text-muted">Simple, rapide et sécurisé</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="step-card p-4 h-100 text-center shadow-sm bg-white rounded-4">
+                    <div class="step-number mb-3">1</div>
+                    <h5 class="fw-bold mb-2">Créez votre compte</h5>
+                    <p class="text-muted">Inscription simple et rapide avec vos informations de base.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card p-4 h-100 text-center shadow-sm bg-white rounded-4">
+                    <div class="step-number mb-3">2</div>
+                    <h5 class="fw-bold mb-2">Trouvez un médecin</h5>
+                    <p class="text-muted">Choisissez parmi nos professionnels de santé qualifiés.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step-card p-4 h-100 text-center shadow-sm bg-white rounded-4">
+                    <div class="step-number mb-3">3</div>
+                    <h5 class="fw-bold mb-2">Consultez en ligne</h5>
+                    <p class="text-muted">Bénéficiez d'une consultation vidéo sécurisée.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

@@ -1,1 +1,53 @@
  
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Mes données médicales{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body p-5">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-notes-medical fa-3x text-success mb-2"></i>
+                            <h2 class="fw-bold mb-0 text-success">Dossier médical</h2>
+                        </div>
+                        <hr>
+                        <div class="row mb-3">
+                            <div class="col-md-6 mb-3">
+                                <div class="bg-light rounded-3 p-3 h-100">
+                                    <p class="mb-1 text-muted"><i class="fas fa-tint me-2"></i>Groupe sanguin</p>
+                                    <h6 class="fw-normal">O+</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="bg-light rounded-3 p-3 h-100">
+                                    <p class="mb-1 text-muted"><i class="fas fa-allergies me-2"></i>Allergies</p>
+                                    <h6 class="fw-normal">Aucune</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="bg-light rounded-3 p-3 h-100">
+                                    <p class="mb-1 text-muted"><i class="fas fa-history me-2"></i>Antécédents</p>
+                                    <h6 class="fw-normal">Aucun</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="bg-light rounded-3 p-3 h-100">
+                                    <p class="mb-1 text-muted"><i class="fas fa-calendar-check me-2"></i>Dernière consultation</p>
+                                    <h6 class="fw-normal">15/05/2025</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 mt-4">
+                            <a href="#" class="btn btn-outline-success btn-lg"><i class="fas fa-download me-2"></i>Télécharger mon dossier</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
