@@ -4,6 +4,8 @@ from . import views
 from .views import login_view, register_view, profile_view
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
+from .views import modifier_profil
+from .views import redirect_after_login
 
 
 urlpatterns = [
@@ -34,7 +36,11 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(
         template_name='users/password_reset_complete.html'
     ), name='password_reset_complete'),
+    path('profile/edit/', modifier_profil, name='edit_profile'),
+    path('redirect/', redirect_after_login, name='redirect_after_login'),
+
 ]
+
 
 
 

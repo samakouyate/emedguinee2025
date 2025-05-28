@@ -39,12 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'users',
-    'patients',
+    
     'medecins',
     'dashboard',
     'prevention',
     'alerts',
+    
+    
+    'widget_tweaks',
+    'patients.apps.PatientsConfig',  # ✅ uniquement celle-ci
+
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -131,3 +138,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+LOGIN_REDIRECT_URL = '/redirect/'

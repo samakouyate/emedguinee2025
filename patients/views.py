@@ -12,3 +12,4 @@ def medical_view(request):
 
 def alerts_view(request):
     return render(request, 'patients/patient_alerts.html')
+

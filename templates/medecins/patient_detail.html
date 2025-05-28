@@ -1,1 +1,246 @@
- 
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .patient-details {
+    background: #ffffff;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+
+    .main-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .section-header {
+        background: linear-gradient(135deg, #2196F3, #21CBF3);
+        color: white;
+        border-radius: 15px 15px 0 0;
+        padding: 1.2rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .section-header::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+        animation: shimmer 3s infinite;
+    }
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    .info-item {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    .info-item:hover {
+        background: linear-gradient(90deg, rgba(33, 150, 243, 0.05), transparent);
+        transform: translateX(5px);
+    }
+    .info-item:last-child { border-bottom: none; }
+    .info-label {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-right: 0.5rem;
+    }
+    .info-value {
+        color: #34495e;
+    }
+    .status-badge {
+        padding: 0.4rem 1rem;
+        border-radius: 25px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .status-stable { background: linear-gradient(135deg, #4CAF50, #45a049); color: white; }
+    .status-surveillance { background: linear-gradient(135deg, #FF9800, #f57c00); color: white; }
+    .status-critique, .status-urgence { background: linear-gradient(135deg, #f44336, #d32f2f); color: white; }
+    .rdv-table {
+        background: white;
+        border-radius: 0 0 15px 15px;
+        overflow: hidden;
+    }
+    .table thead th {
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        border: none;
+        font-weight: 600;
+        color: #2c3e50;
+        padding: 1rem;
+    }
+    .table tbody tr {
+        transition: all 0.3s ease;
+    }
+    .table tbody tr:hover {
+        background: linear-gradient(90deg, rgba(33, 150, 243, 0.1), transparent);
+        transform: scale(1.01);
+    }
+    .table td {
+        padding: 1rem;
+        vertical-align: middle;
+        border-color: rgba(0, 0, 0, 0.05);
+    }
+    .btn-modern {
+        border-radius: 25px;
+        padding: 0.5rem 1.2rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: none;
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-primary-modern {
+        background: linear-gradient(135deg, #2196F3, #21CBF3);
+        color: white;
+        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+    }
+    .btn-primary-modern:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+    }
+    .btn-outline-modern {
+        background: transparent;
+        border: 2px solid #2196F3;
+        color: #2196F3;
+    }
+    .btn-outline-modern:hover {
+        background: #2196F3;
+        color: white;
+        transform: translateY(-2px);
+    }
+    .btn-danger-modern {
+        background: linear-gradient(135deg, #f44336, #d32f2f);
+        color: white;
+    }
+    .page-title {
+        text-align: center;
+        color: white;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    .back-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+    }
+    .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        color: white;
+        transform: translateY(-2px);
+    }
+    @media (max-width: 768px) {
+        .patient-details { padding: 1rem 0; }
+        .page-title { font-size: 2rem; }
+        .main-card { margin: 0 0.5rem; }
+        .info-item { padding: 0.8rem 1rem; }
+        .table-responsive { font-size: 0.9rem; }
+    }
+</style>
+
+<div class="patient-details">
+    <div class="container">
+        <h1 class="page-title">👨‍⚕️ Dossier du Patient</h1>
+        
+        <div class="main-card mb-4">
+            <div class="section-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">📋 Informations Personnelles</h4>
+                    <a href="{% url 'modifier_patient' patient.id %}" class="btn btn-primary-modern btn-modern">✏️ Modifier</a>
+                </div>
+            </div>
+            <div>
+                <div class="info-item"><span class="info-label">Nom :</span><span class="info-value">{{ patient.nom }}</span></div>
+                <div class="info-item"><span class="info-label">Prénom :</span><span class="info-value">{{ patient.prenom }}</span></div>
+                <div class="info-item"><span class="info-label">Date de naissance :</span><span class="info-value">{{ patient.date_naissance|date:"d/m/Y" }}</span></div>
+                <div class="info-item"><span class="info-label">Sexe :</span><span class="info-value">{% if patient.sexe %}{{ patient.sexe|capfirst }}{% else %}Non spécifié{% endif %}</span></div>
+                <div class="info-item">
+                    <span class="info-label">Statut médical :</span>
+                    {% if patient.statut == "stable" %}
+                        <span class="status-badge status-stable">Stable</span>
+                    {% elif patient.statut == "surveillance" %}
+                        <span class="status-badge status-surveillance">Surveillance</span>
+                    {% elif patient.statut == "critique" %}
+                        <span class="status-badge status-critique">Critique</span>
+                    {% elif patient.statut == "urgence" %}
+                        <span class="status-badge status-urgence">Urgence</span>
+                    {% else %}
+                        <span class="info-value">Inconnu</span>
+                    {% endif %}
+                </div>
+                <div class="info-item"><span class="info-label">Urgence :</span><span class="info-value">{{ patient.urgence|yesno:"Oui,Non" }}</span></div>
+                <div class="info-item"><span class="info-label">Téléphone :</span><span class="info-value">{{ patient.telephone }}</span></div>
+                <div class="info-item"><span class="info-label">Email :</span><span class="info-value">{{ patient.email }}</span></div>
+                <div class="info-item"><span class="info-label">Adresse :</span><span class="info-value">{{ patient.adresse }}</span></div>
+                <div class="info-item"><span class="info-label">Pathologie :</span><span class="info-value">{{ patient.pathologie|default:"Non renseignée" }}</span></div>
+                <div class="info-item"><span class="info-label">Dernier RDV :</span><span class="info-value">{% if patient.dernier_rdv %}{{ patient.dernier_rdv|date:"d/m/Y" }}{% else %}Aucun{% endif %}</span></div>
+                <div class="info-item"><span class="info-label">Prochain RDV :</span><span class="info-value">{% if patient.prochain_rdv %}{{ patient.prochain_rdv|date:"d/m/Y" }}{% else %}Non défini{% endif %}</span></div>
+                <div class="info-item"><span class="info-label">Tension :</span><span class="info-value">{{ patient.tension }}</span></div>
+                <div class="info-item"><span class="info-label">Poids :</span><span class="info-value">{{ patient.poids }}kg</span></div>
+                <div class="info-item"><span class="info-label">Température :</span><span class="info-value">{{ patient.temperature }}°C</span></div>
+                <div class="info-item"><span class="info-label">Fréquence cardiaque :</span><span class="info-value">{{ patient.frequence }} bpm</span></div>
+            </div>
+        </div>
+
+        <div class="main-card">
+            <div class="section-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">🗓️ Historique des Rendez-vous</h4>
+                    <a href="{% url 'prendre_rendez_vous' patient.id %}" class="btn btn-primary-modern btn-modern">➕ Nouveau RDV</a>
+                </div>
+            </div>
+            <div class="rdv-table table-responsive">
+                <table class="table m-0">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Heure</th>
+                            <th>Motif</th>
+                            <th>Médecin</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for rdv in rendezvous %}
+                            <tr>
+                                <td>{{ rdv.date_rdv|date:"d/m/Y" }}</td>
+                                <td>{{ rdv.heure|default:"Non précisée" }}</td>
+                                <td>{{ rdv.get_motif_display }}</td>
+                                <td>{{ rdv.medecin.get_full_name|default:rdv.medecin.username }}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'modifier_rendez_vous' rdv.id %}" class="btn btn-outline-modern btn-modern btn-sm me-1">📝</a>
+                                    <a href="{% url 'supprimer_rendez_vous' rdv.id %}" class="btn btn-danger-modern btn-modern btn-sm" onclick="return confirm('Confirmer la suppression ?')">❌</a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center py-4">
+                                    <div class="text-muted">
+                                        <i class="fas fa-calendar-times fa-2x mb-2"></i>
+                                        <p>Aucun rendez-vous trouvé</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'medecin_dashboard' %}" class="btn back-btn btn-modern">⬅️ Retour au Tableau de Bord</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <h2 class="text-center mb-4" style="color: #1e3a8a; font-weight: 700;">
+        ✏️ Modifier les informations du patient
+    </h2>
+
+    <!-- Affichage des messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="card shadow-sm p-4">
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nom" class="form-label">Nom</label>
+                    {% render_field form.nom class="form-control" %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="prenom" class="form-label">Prénom</label>
+                    {% render_field form.prenom class="form-control" %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="date_naissance" class="form-label">Date de naissance</label>
+                    {% render_field form.date_naissance class="form-control" %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="sexe" class="form-label">Sexe</label>
+                    {% render_field form.sexe class="form-select" %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="telephone" class="form-label">Téléphone</label>
+                    {% render_field form.telephone class="form-control" %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    {% render_field form.email class="form-control" %}
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="adresse" class="form-label">Adresse</label>
+                    {% render_field form.adresse class="form-control" %}
+                </div>
+                <div class="col-md-12 mb-3">
+                    <label for="pathologie" class="form-label">Pathologie</label>
+                    {% render_field form.pathologie class="form-control" %}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="statut" class="form-label">Statut médical</label>
+                    {% render_field form.statut class="form-select" %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="urgence" class="form-label">Est-ce une urgence ?</label>
+                    {% render_field form.urgence class="form-check-input" %}
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="dernier_rdv" class="form-label">Dernier rendez-vous</label>
+                    {% render_field form.dernier_rdv class="form-control" %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="prochain_rdv" class="form-label">Prochain rendez-vous</label>
+                    {% render_field form.prochain_rdv class="form-control" %}
+                </div>
+
+                <!-- Constantes vitales -->
+                <div class="col-md-3 mb-3">
+                    <label for="tension" class="form-label">Tension</label>
+                    {% render_field form.tension class="form-control" %}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="poids" class="form-label">Poids (kg)</label>
+                    {% render_field form.poids class="form-control" %}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="temperature" class="form-label">Température (°C)</label>
+                    {% render_field form.temperature class="form-control" %}
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="frequence" class="form-label">Fréquence cardiaque</label>
+                    {% render_field form.frequence class="form-control" %}
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary px-5">💾 Enregistrer</button>
+                <a href="{% url 'patient_detail' patient.id %}" class="btn btn-outline-secondary ms-3">Annuler</a>
+
+                
+                
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+<a href="{% url 'medecin_dashboard' %}" class="btn btn-outline-secondary mb-3">
+    ⬅️ Retour au tableau de bord
+</a>
+

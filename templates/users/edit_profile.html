@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Modifier mon profil{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow rounded-4">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h4>✏️ Modifier mes informations</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-primary">
+                                💾 Enregistrer les modifications
+                            </button>
+                        </div>
+                    </form>
+                    <a href="{% url 'profile' %}" class="btn btn-link mt-3">← Retour à mon profil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
