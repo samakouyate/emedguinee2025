@@ -202,11 +202,25 @@ def export_pdf(request):
     return HttpResponse(buffer, content_type='application/pdf')
 
 # ✅ Afficher le profil médecin
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.shortcuts import render
+from users.models import ProfilMedecin
+
+def is_medecin(user):
+    return user.groups.filter(name="Médecins").exists()
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
+from users.models import ProfilMedecin
+
 @login_required
-@user_passes_test(is_medecin)
 def profil_medecin(request):
-    profil = ProfilMedecin.objects.get(utilisateur=request.user)
-    return render(request, 'medecins/profil_medecin.html', {'profil': profil})
+    utilisateur = request.user
+    profil_medecin = get_object_or_404(ProfilMedecin, utilisateur=utilisateur)
+    
+    return render(request, 'medecins/profil_medecin.html', {
+        'profil_medecin': profil_medecin
+    })
 
 # ✅ Modifier profil médecin
 @login_required
@@ -222,3 +236,28 @@ def modifier_profil_medecin(request):
     else:
         form = ProfilMedecinForm(instance=profil)
     return render(request, 'medecins/modifier_profil_medecin.html', {'form': form})
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from users.models import ProfilMedecin
+from users.forms import ProfilForm  # ✅ import corrigé
+
+@login_required
+def modifier_profil_medecin(request):
+    # Récupère le profil médecin lié à l'utilisateur connecté ou renvoie une 404
+    profil = get_object_or_404(ProfilMedecin, utilisateur=request.user)
+
+    if request.method == 'POST':
+        form = ProfilForm(request.POST, instance=profil)  # ✅ nom corrigé
+        if form.is_valid():
+            form.save()
+            messages.success(request, "✅ Profil mis à jour avec succès.")
+            return redirect('profil_medecin')
+        else:
+            messages.error(request, "❌ Merci de corriger les erreurs dans le formulaire.")
+    else:
+        form = ProfilForm(instance=profil)  # ✅ nom corrigé
+
+    return render(request, 'medecins/modifier_profil_medecin.html', {'form': form})
+

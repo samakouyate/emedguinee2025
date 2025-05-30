@@ -2,6 +2,10 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from .views import profil_medecin
+from .views import profil_medecin, modifier_profil_medecin
+
+
 
 urlpatterns = [
     path('dashboard/', views.dashboard_view, name='medecin_dashboard'),
@@ -18,6 +22,7 @@ urlpatterns = [
     path('profil/', views.profil_medecin, name='profil_medecin'),  # ✅ cette ligne est essentielle
     path('dashboard/', views.dashboard_view, name='medecins_dashboard'),
     path('profil/modifier/', views.modifier_profil_medecin, name='modifier_profil_medecin'),
+    path('profil/', profil_medecin, name='profil_medecin'),
     
 
     

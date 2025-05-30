@@ -1,233 +1,613 @@
 {% extends 'base.html' %}
 {% block content %}
 <style>
+    * {
+        box-sizing: border-box;
+    }
+    
     .patient-details {
-    background: #ffffff;
-    min-height: 100vh;
-    padding: 2rem 0;
-}
-
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 2rem 0;
+        position: relative;
+        overflow-x: hidden;
+    }
+    
+    .patient-details::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 118, 117, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(120, 158, 255, 0.2) 0%, transparent 50%);
+        pointer-events: none;
+    }
 
     .main-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        box-shadow: 
+            0 32px 64px rgba(0, 0, 0, 0.12),
+            0 16px 32px rgba(0, 0, 0, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
     }
+    
+    .main-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 
+            0 40px 80px rgba(0, 0, 0, 0.16),
+            0 20px 40px rgba(0, 0, 0, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+    
     .section-header {
-        background: linear-gradient(135deg, #2196F3, #21CBF3);
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         color: white;
-        border-radius: 15px 15px 0 0;
-        padding: 1.2rem;
+        padding: 2rem;
         position: relative;
         overflow: hidden;
     }
+    
     .section-header::before {
         content: '';
         position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
         animation: shimmer 3s infinite;
     }
+    
+    .section-header::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+    }
+    
     @keyframes shimmer {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
+        0% { left: -100%; }
+        100% { left: 100%; }
     }
+    
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+    
+    .section-title::before {
+        content: '';
+        width: 4px;
+        height: 30px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 2px;
+    }
+    
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 0;
+    }
+    
     .info-item {
-        padding: 1rem 1.5rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        border-right: 1px solid rgba(0, 0, 0, 0.04);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
+        background: rgba(255, 255, 255, 0.5);
     }
+    
     .info-item:hover {
-        background: linear-gradient(90deg, rgba(33, 150, 243, 0.05), transparent);
-        transform: translateX(5px);
+        background: linear-gradient(135deg, rgba(79, 172, 254, 0.08) 0%, rgba(0, 242, 254, 0.08) 100%);
+        transform: scale(1.02);
+        z-index: 2;
+        box-shadow: 0 8px 32px rgba(79, 172, 254, 0.15);
     }
-    .info-item:last-child { border-bottom: none; }
+    
+    .info-item:nth-child(even) {
+        background: rgba(248, 250, 252, 0.8);
+    }
+    
+    .info-item:nth-child(even):hover {
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.08) 0%, rgba(236, 72, 153, 0.08) 100%);
+    }
+    
     .info-label {
-        font-weight: 600;
-        color: #2c3e50;
-        margin-right: 0.5rem;
-    }
-    .info-value {
-        color: #34495e;
-    }
-    .status-badge {
-        padding: 0.4rem 1rem;
-        border-radius: 25px;
-        font-size: 0.85rem;
-        font-weight: 600;
+        font-weight: 700;
+        color: #1e293b;
+        margin-right: 0.75rem;
+        display: block;
+        font-size: 0.875rem;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+        opacity: 0.8;
     }
-    .status-stable { background: linear-gradient(135deg, #4CAF50, #45a049); color: white; }
-    .status-surveillance { background: linear-gradient(135deg, #FF9800, #f57c00); color: white; }
-    .status-critique, .status-urgence { background: linear-gradient(135deg, #f44336, #d32f2f); color: white; }
+    
+    .info-value {
+        color: #334155;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    
+    .status-badge {
+        padding: 0.5rem 1.25rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .status-badge::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        animation: statusShimmer 2s infinite;
+    }
+    
+    @keyframes statusShimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+    
+    .status-stable { 
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+    }
+    .status-stable::after { content: '✅'; }
+    
+    .status-surveillance { 
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: white;
+    }
+    .status-surveillance::after { content: '👁️'; }
+    
+    .status-critique, .status-urgence { 
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+    }
+    .status-critique::after, .status-urgence::after { content: '🚨'; }
+    
     .rdv-table {
         background: white;
-        border-radius: 0 0 15px 15px;
         overflow: hidden;
     }
-    .table thead th {
-        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-        border: none;
-        font-weight: 600;
-        color: #2c3e50;
-        padding: 1rem;
+    
+    .table {
+        margin: 0;
+        border-collapse: separate;
+        border-spacing: 0;
     }
+    
+    .table thead th {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        border: none;
+        font-weight: 700;
+        color: #1e293b;
+        padding: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.75rem;
+        position: relative;
+    }
+    
+    .table thead th::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    }
+    
     .table tbody tr {
         transition: all 0.3s ease;
+        background: white;
     }
+    
+    .table tbody tr:nth-child(even) {
+        background: rgba(248, 250, 252, 0.5);
+    }
+    
     .table tbody tr:hover {
-        background: linear-gradient(90deg, rgba(33, 150, 243, 0.1), transparent);
+        background: linear-gradient(135deg, rgba(79, 172, 254, 0.05) 0%, rgba(0, 242, 254, 0.05) 100%);
         transform: scale(1.01);
+        box-shadow: 0 4px 20px rgba(79, 172, 254, 0.1);
     }
+    
     .table td {
-        padding: 1rem;
+        padding: 1.25rem 1.5rem;
         vertical-align: middle;
-        border-color: rgba(0, 0, 0, 0.05);
+        border-color: rgba(226, 232, 240, 0.5);
+        font-weight: 500;
     }
+    
     .btn-modern {
-        border-radius: 25px;
-        padding: 0.5rem 1.2rem;
+        border-radius: 50px;
+        padding: 0.75rem 1.5rem;
         font-weight: 600;
         text-decoration: none;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border: none;
         position: relative;
         overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.875rem;
     }
+    
+    .btn-modern::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: left 0.5s;
+    }
+    
+    .btn-modern:hover::before {
+        left: 100%;
+    }
+    
     .btn-primary-modern {
-        background: linear-gradient(135deg, #2196F3, #21CBF3);
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         color: white;
-        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        box-shadow: 0 8px 32px rgba(79, 172, 254, 0.3);
     }
+    
     .btn-primary-modern:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(79, 172, 254, 0.4);
+        color: white;
     }
+    
     .btn-outline-modern {
-        background: transparent;
-        border: 2px solid #2196F3;
-        color: #2196F3;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid #4facfe;
+        color: #4facfe;
+        backdrop-filter: blur(10px);
     }
+    
     .btn-outline-modern:hover {
-        background: #2196F3;
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         color: white;
         transform: translateY(-2px);
+        box-shadow: 0 8px 32px rgba(79, 172, 254, 0.3);
     }
+    
     .btn-danger-modern {
-        background: linear-gradient(135deg, #f44336, #d32f2f);
+        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+        color: white;
+        box-shadow: 0 8px 32px rgba(255, 107, 107, 0.3);
+    }
+    
+    .btn-danger-modern:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(255, 107, 107, 0.4);
         color: white;
     }
+    
     .page-title {
         text-align: center;
         color: white;
-        margin-bottom: 2rem;
-        font-size: 2.5rem;
-        font-weight: 700;
-        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        margin-bottom: 3rem;
+        font-size: 3rem;
+        font-weight: 800;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 1;
     }
+    
+    .page-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 100%);
+        border-radius: 2px;
+    }
+    
     .back-btn {
-        background: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.15);
         color: white;
         border: 2px solid rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(10px);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
+    
     .back-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.25);
         color: white;
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     }
+    
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #64748b;
+    }
+    
+    .empty-state i {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.3;
+    }
+    
+    .empty-state p {
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin: 0;
+    }
+    
+    .vital-signs {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .vital-sign {
+        background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
+        padding: 1.5rem;
+        border-radius: 16px;
+        text-align: center;
+        border: 1px solid rgba(79, 172, 254, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .vital-sign:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(79, 172, 254, 0.15);
+    }
+    
+    .vital-sign-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .vital-sign-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.25rem;
+    }
+    
+    .vital-sign-label {
+        font-size: 0.875rem;
+        color: #64748b;
+        font-weight: 500;
+    }
+    
     @media (max-width: 768px) {
-        .patient-details { padding: 1rem 0; }
-        .page-title { font-size: 2rem; }
-        .main-card { margin: 0 0.5rem; }
-        .info-item { padding: 0.8rem 1rem; }
-        .table-responsive { font-size: 0.9rem; }
+        .patient-details { 
+            padding: 1rem 0; 
+        }
+        .page-title { 
+            font-size: 2rem; 
+            margin-bottom: 2rem;
+        }
+        .main-card { 
+            margin: 0 0.5rem; 
+            border-radius: 16px;
+        }
+        .info-item { 
+            padding: 1rem 1.5rem; 
+        }
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+        .section-header {
+            padding: 1.5rem;
+        }
+        .table-responsive { 
+            font-size: 0.875rem; 
+        }
+        .btn-modern {
+            padding: 0.625rem 1.25rem;
+            font-size: 0.8rem;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .page-title {
+            font-size: 1.75rem;
+        }
+        .section-title {
+            font-size: 1.25rem;
+        }
+        .info-item {
+            padding: 0.875rem 1rem;
+        }
+        .table td {
+            padding: 1rem 0.75rem;
+        }
     }
 </style>
 
 <div class="patient-details">
     <div class="container">
-        <h1 class="page-title">👨‍⚕️ Dossier du Patient</h1>
+        <h1 class="page-title">👨‍⚕️ Dossier Patient</h1>
         
+        <!-- Informations Personnelles -->
         <div class="main-card mb-4">
             <div class="section-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">📋 Informations Personnelles</h4>
-                    <a href="{% url 'modifier_patient' patient.id %}" class="btn btn-primary-modern btn-modern">✏️ Modifier</a>
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <h4 class="section-title mb-0">📋 Informations Personnelles</h4>
+                    <a href="{% url 'modifier_patient' patient.id %}" class="btn btn-primary-modern btn-modern">
+                        ✏️ Modifier
+                    </a>
                 </div>
             </div>
-            <div>
-                <div class="info-item"><span class="info-label">Nom :</span><span class="info-value">{{ patient.nom }}</span></div>
-                <div class="info-item"><span class="info-label">Prénom :</span><span class="info-value">{{ patient.prenom }}</span></div>
-                <div class="info-item"><span class="info-label">Date de naissance :</span><span class="info-value">{{ patient.date_naissance|date:"d/m/Y" }}</span></div>
-                <div class="info-item"><span class="info-label">Sexe :</span><span class="info-value">{% if patient.sexe %}{{ patient.sexe|capfirst }}{% else %}Non spécifié{% endif %}</span></div>
+            <div class="info-grid">
                 <div class="info-item">
-                    <span class="info-label">Statut médical :</span>
-                    {% if patient.statut == "stable" %}
-                        <span class="status-badge status-stable">Stable</span>
-                    {% elif patient.statut == "surveillance" %}
-                        <span class="status-badge status-surveillance">Surveillance</span>
-                    {% elif patient.statut == "critique" %}
-                        <span class="status-badge status-critique">Critique</span>
-                    {% elif patient.statut == "urgence" %}
-                        <span class="status-badge status-urgence">Urgence</span>
-                    {% else %}
-                        <span class="info-value">Inconnu</span>
-                    {% endif %}
+                    <span class="info-label">👤 Nom</span>
+                    <div class="info-value">{{ patient.nom }}</div>
                 </div>
-                <div class="info-item"><span class="info-label">Urgence :</span><span class="info-value">{{ patient.urgence|yesno:"Oui,Non" }}</span></div>
-                <div class="info-item"><span class="info-label">Téléphone :</span><span class="info-value">{{ patient.telephone }}</span></div>
-                <div class="info-item"><span class="info-label">Email :</span><span class="info-value">{{ patient.email }}</span></div>
-                <div class="info-item"><span class="info-label">Adresse :</span><span class="info-value">{{ patient.adresse }}</span></div>
-                <div class="info-item"><span class="info-label">Pathologie :</span><span class="info-value">{{ patient.pathologie|default:"Non renseignée" }}</span></div>
-                <div class="info-item"><span class="info-label">Dernier RDV :</span><span class="info-value">{% if patient.dernier_rdv %}{{ patient.dernier_rdv|date:"d/m/Y" }}{% else %}Aucun{% endif %}</span></div>
-                <div class="info-item"><span class="info-label">Prochain RDV :</span><span class="info-value">{% if patient.prochain_rdv %}{{ patient.prochain_rdv|date:"d/m/Y" }}{% else %}Non défini{% endif %}</span></div>
-                <div class="info-item"><span class="info-label">Tension :</span><span class="info-value">{{ patient.tension }}</span></div>
-                <div class="info-item"><span class="info-label">Poids :</span><span class="info-value">{{ patient.poids }}kg</span></div>
-                <div class="info-item"><span class="info-label">Température :</span><span class="info-value">{{ patient.temperature }}°C</span></div>
-                <div class="info-item"><span class="info-label">Fréquence cardiaque :</span><span class="info-value">{{ patient.frequence }} bpm</span></div>
+                <div class="info-item">
+                    <span class="info-label">👤 Prénom</span>
+                    <div class="info-value">{{ patient.prenom }}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">🎂 Date de naissance</span>
+                    <div class="info-value">{{ patient.date_naissance|date:"d/m/Y" }}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">⚥ Sexe</span>
+                    <div class="info-value">{% if patient.sexe %}{{ patient.sexe|capfirst }}{% else %}Non spécifié{% endif %}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">🏥 Statut médical</span>
+                    <div class="info-value">
+                        {% if patient.statut == "stable" %}
+                            <span class="status-badge status-stable">Stable</span>
+                        {% elif patient.statut == "surveillance" %}
+                            <span class="status-badge status-surveillance">Surveillance</span>
+                        {% elif patient.statut == "critique" %}
+                            <span class="status-badge status-critique">Critique</span>
+                        {% elif patient.statut == "urgence" %}
+                            <span class="status-badge status-urgence">Urgence</span>
+                        {% else %}
+                            <span class="info-value">Inconnu</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">🚨 Urgence</span>
+                    <div class="info-value">{{ patient.urgence|yesno:"Oui,Non" }}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">📞 Téléphone</span>
+                    <div class="info-value">{{ patient.telephone }}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">📧 Email</span>
+                    <div class="info-value">{{ patient.email }}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">🏠 Adresse</span>
+                    <div class="info-value">{{ patient.adresse }}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">🔬 Pathologie</span>
+                    <div class="info-value">{{ patient.pathologie|default:"Non renseignée" }}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">📅 Dernier RDV</span>
+                    <div class="info-value">{% if patient.dernier_rdv %}{{ patient.dernier_rdv|date:"d/m/Y" }}{% else %}Aucun{% endif %}</div>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">📅 Prochain RDV</span>
+                    <div class="info-value">{% if patient.prochain_rdv %}{{ patient.prochain_rdv|date:"d/m/Y" }}{% else %}Non défini{% endif %}</div>
+                </div>
+            </div>
+            
+            <!-- Signes Vitaux -->
+            <div style="padding: 2rem; background: linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(241, 245, 249, 0.8) 100%);">
+                <h5 style="color: #1e293b; font-weight: 700; margin-bottom: 1.5rem; text-align: center;">📊 Signes Vitaux</h5>
+                <div class="vital-signs">
+                    <div class="vital-sign">
+                        <div class="vital-sign-icon">🩺</div>
+                        <div class="vital-sign-value">{{ patient.tension }}</div>
+                        <div class="vital-sign-label">Tension</div>
+                    </div>
+                    <div class="vital-sign">
+                        <div class="vital-sign-icon">⚖️</div>
+                        <div class="vital-sign-value">{{ patient.poids }}kg</div>
+                        <div class="vital-sign-label">Poids</div>
+                    </div>
+                    <div class="vital-sign">
+                        <div class="vital-sign-icon">🌡️</div>
+                        <div class="vital-sign-value">{{ patient.temperature }}°C</div>
+                        <div class="vital-sign-label">Température</div>
+                    </div>
+                    <div class="vital-sign">
+                        <div class="vital-sign-icon">💓</div>
+                        <div class="vital-sign-value">{{ patient.frequence }} bpm</div>
+                        <div class="vital-sign-label">Fréquence cardiaque</div>
+                    </div>
+                </div>
             </div>
         </div>
 
+        <!-- Historique des Rendez-vous -->
         <div class="main-card">
             <div class="section-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h4 class="mb-0">🗓️ Historique des Rendez-vous</h4>
-                    <a href="{% url 'prendre_rendez_vous' patient.id %}" class="btn btn-primary-modern btn-modern">➕ Nouveau RDV</a>
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <h4 class="section-title mb-0">🗓️ Historique des Rendez-vous</h4>
+                    <a href="{% url 'prendre_rendez_vous' patient.id %}" class="btn btn-primary-modern btn-modern">
+                        ➕ Nouveau RDV
+                    </a>
                 </div>
             </div>
             <div class="rdv-table table-responsive">
                 <table class="table m-0">
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Heure</th>
-                            <th>Motif</th>
-                            <th>Médecin</th>
-                            <th class="text-center">Actions</th>
+                            <th>📅 Date</th>
+                            <th>🕐 Heure</th>
+                            <th>📝 Motif</th>
+                            <th>👨‍⚕️ Médecin</th>
+                            <th class="text-center">⚙️ Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for rdv in rendezvous %}
                             <tr>
-                                <td>{{ rdv.date_rdv|date:"d/m/Y" }}</td>
+                                <td><strong>{{ rdv.date_rdv|date:"d/m/Y" }}</strong></td>
                                 <td>{{ rdv.heure|default:"Non précisée" }}</td>
                                 <td>{{ rdv.get_motif_display }}</td>
                                 <td>{{ rdv.medecin.get_full_name|default:rdv.medecin.username }}</td>
                                 <td class="text-center">
-                                    <a href="{% url 'modifier_rendez_vous' rdv.id %}" class="btn btn-outline-modern btn-modern btn-sm me-1">📝</a>
-                                    <a href="{% url 'supprimer_rendez_vous' rdv.id %}" class="btn btn-danger-modern btn-modern btn-sm" onclick="return confirm('Confirmer la suppression ?')">❌</a>
+                                    <a href="{% url 'modifier_rendez_vous' rdv.id %}" 
+                                       class="btn btn-outline-modern btn-modern btn-sm me-1" 
+                                       title="Modifier">📝</a>
+                                    <a href="{% url 'supprimer_rendez_vous' rdv.id %}" 
+                                       class="btn btn-danger-modern btn-modern btn-sm" 
+                                       onclick="return confirm('Confirmer la suppression ?')"
+                                       title="Supprimer">❌</a>
                                 </td>
                             </tr>
                         {% empty %}
                             <tr>
-                                <td colspan="5" class="text-center py-4">
-                                    <div class="text-muted">
-                                        <i class="fas fa-calendar-times fa-2x mb-2"></i>
+                                <td colspan="5">
+                                    <div class="empty-state">
+                                        <i class="fas fa-calendar-times"></i>
                                         <p>Aucun rendez-vous trouvé</p>
                                     </div>
                                 </td>
@@ -238,8 +618,11 @@
             </div>
         </div>
         
-        <div class="text-center mt-4">
-            <a href="{% url 'medecin_dashboard' %}" class="btn back-btn btn-modern">⬅️ Retour au Tableau de Bord</a>
+        <!-- Bouton Retour -->
+        <div class="text-center mt-5">
+            <a href="{% url 'medecin_dashboard' %}" class="btn back-btn btn-modern">
+                ⬅️ Retour au Tableau de Bord
+            </a>
         </div>
     </div>
 </div>

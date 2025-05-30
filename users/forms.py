@@ -5,6 +5,7 @@ from django import forms
 
 from users.models import ProfilMedecin
 
+
 class ProfilForm(forms.ModelForm):
     class Meta:
         model = ProfilMedecin
@@ -17,5 +18,6 @@ class ProfilForm(forms.ModelForm):
             'telephone',
             'telephone_urgence',
             'fax',
+            
         ]
 
